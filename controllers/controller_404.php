@@ -1,4 +1,7 @@
 <?php
+    namespace Task_List_MVC\Controllers;
+    use Task_List_MVC\Core\Controller;
+    use Task_List_MVC\Core\View;
 
 class Controller_404 extends Controller
 {

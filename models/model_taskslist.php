@@ -1,4 +1,7 @@
 <?php
+    namespace Task_List_MVC\Models;
+    use Task_List_MVC\Core\Model;
+    use \PDO;
     if(file_exists('connect.php')) include 'connect.php'; // Подключение к БД
     class Model_Taskslist extends Model{
         function getItemsFromDB($userId){

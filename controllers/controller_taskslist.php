@@ -1,4 +1,8 @@
 <?php
+    namespace Task_List_MVC\Controllers;
+    use Task_List_MVC\Core\Controller;
+    use Task_List_MVC\Models\Model_TasksList;
+    use Task_List_MVC\Core\View;
     session_start();
     class Controller_Taskslist extends Controller{
         

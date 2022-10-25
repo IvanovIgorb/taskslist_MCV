@@ -1,12 +1,15 @@
 <?php
+    namespace Task_List_MVC\Models;
+    use Task_List_MVC\Core\Model;
+    use \PDO;
     if(file_exists('connect.php')) include 'connect.php';
     class Model_Login extends Model
     {
         public function insertData(string $login, string $pass)
         {
             global $pdo;
-            $usersListStmt = $pdo->prepare("SELECT * FROM `users` WHERE `login` = ? AND `password` = ?");
-            $usersListStmt->execute([$login,$pass]);
+            $usersListStmt = $pdo->prepare("SELECT * FROM `users` WHERE `login` = ?");
+            $usersListStmt->execute([$login]);
 
             $data =  $usersListStmt->fetchAll(PDO::FETCH_ASSOC);
             if(count($data) == 0){
@@ -19,7 +22,10 @@
                 $stmt = $pdo->prepare($query);
                 $stmt->execute($params);
             }
-
-            return $data;
+            if($data[0]['password'] != $pass){
+                $error[] = "Неверный пароль";
+            }
+            
+            return [$data,$error];
         }
     }

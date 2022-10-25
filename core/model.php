@@ -1,8 +1,7 @@
 <?php
-
+namespace Task_List_MVC\Core;
 class Model
 {
-	
 	/*
 		Модель обычно включает методы выборки данных, это могут быть:
 			> методы нативных библиотек pgsql или mysql;

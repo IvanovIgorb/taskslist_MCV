@@ -1,5 +1,9 @@
 <?php
-
+namespace Task_List_MVC\Core;
+use Task_List_MVC\Models\Model_Login;
+use Task_List_MVC\Controllers\Controller_Login;
+use Task_List_MVC\Models\Model_TasksList;
+use Task_List_MVC\Controllers\Controller_TasksList;
 /*
 Класс-маршрутизатор для определения запрашиваемой страницы.
 > цепляет классы контроллеров и моделей;
@@ -7,7 +11,6 @@
 */
 class Route
 {
-
 	static function start()
 	{
 		// контроллер и действие по умолчанию
@@ -38,43 +41,41 @@ class Route
 		echo "Controller: $controller_name <br>";
 		echo "Action: $action_name <br>";
 		*/
-
+		print($controller_name);
 		// подцепляем файл с классом модели (файла модели может и не быть)
 
-        spl_autoload_register(function ($model_name) {
-            include 'models/' . strtolower($model_name). '.php';
-        });
+		//Пытался так подключить классы, но выдает include_once(Task_List_MVC/Controllers/Controller_Taskslist.php): failed to open stream: No such file or directory
 
-//		$model_file = strtolower($model_name).'.php';
-//		$model_path = "models/".$model_file;
-//		if(file_exists($model_path))
-//		{
-//			include "models/".$model_file;
-//		}
+		 spl_autoload_register(function($className) {
+		 	include_once str_replace('\\','/',$className).'.php';
+		 });
 
-		// подцепляем файл с классом контроллера
+		// $model_file = strtolower($model_name).'.php';
+		// $model_path = "models/".$model_file;
+		// if(file_exists($model_path))
+		// {
+		// 	include "models/".$model_file;
+		// }
 
-        spl_autoload_register(function ($controller_name) {
-            include 'controllers/' . strtolower($controller_name). '.php';
-        });
-
-//		$controller_file = strtolower($controller_name).'.php';
-//		$controller_path = "controllers/".$controller_file;
-//		if(file_exists($controller_path))
-//		{
-//			include "controllers/".$controller_file;
-//		}
-//		else
-//		{
-//			/*
-//			правильно было бы кинуть здесь исключение,
-//			но для упрощения сразу сделаем редирект на страницу 404
-//			*/
-//			//Route::ErrorPage404();
-//		}
+		// // подцепляем файл с классом контроллера
+		// $controller_file = strtolower($controller_name).'.php';
+		// $controller_path = "controllers/".$controller_file;
+		// if(file_exists($controller_path))
+		// {
+		// 	include "controllers/".$controller_file;
+		// }
+		// else
+		// {
+		// 	/*
+		// 	правильно было бы кинуть здесь исключение,
+		// 	но для упрощения сразу сделаем редирект на страницу 404
+		// 	*/
+		// 	Route::ErrorPage404();
+		// }
 		
-		// создаем контроллер
-		$controller = new $controller_name;
+		//Ну и тут беды с генерированием контроллера, так удается отрывать хоть что-то, но не знаю, как сделать универсально
+		$controller = new \Task_List_MVC\Controllers\Controller_Taskslist;
+
 		$action = $action_name;
 		
 		if(method_exists($controller, $action))
@@ -85,7 +86,7 @@ class Route
 		else
 		{
 			// здесь также разумнее было бы кинуть исключение
-			//Route::ErrorPage404();
+			Route::ErrorPage404();
 		}
 	
 	}

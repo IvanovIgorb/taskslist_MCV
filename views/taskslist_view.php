@@ -1,6 +1,6 @@
 <?php
     //Проверка на действительность сессии юзера
-    if(!isset($_COOKIE['user'])){
+    if(!isset($_SESSION['user'])){
         header('Location: /index');
     }
 //    foreach ($data as $row){
@@ -61,8 +61,6 @@
         echo '</tr>';
         echo '</form>';
     }
-        $controller = new Controller_Taskslist();
-        $controller->handle();
                   
     ?>
     </table>
