@@ -41,28 +41,37 @@ class Route
 
 		// подцепляем файл с классом модели (файла модели может и не быть)
 
-		$model_file = strtolower($model_name).'.php';
-		$model_path = "models/".$model_file;
-		if(file_exists($model_path))
-		{
-			include "models/".$model_file;
-		}
+        spl_autoload_register(function ($model_name) {
+            include 'models/' . strtolower($model_name). '.php';
+        });
+
+//		$model_file = strtolower($model_name).'.php';
+//		$model_path = "models/".$model_file;
+//		if(file_exists($model_path))
+//		{
+//			include "models/".$model_file;
+//		}
 
 		// подцепляем файл с классом контроллера
-		$controller_file = strtolower($controller_name).'.php';
-		$controller_path = "controllers/".$controller_file;
-		if(file_exists($controller_path))
-		{
-			include "controllers/".$controller_file;
-		}
-		else
-		{
-			/*
-			правильно было бы кинуть здесь исключение,
-			но для упрощения сразу сделаем редирект на страницу 404
-			*/
-			Route::ErrorPage404();
-		}
+
+        spl_autoload_register(function ($controller_name) {
+            include 'controllers/' . strtolower($controller_name). '.php';
+        });
+
+//		$controller_file = strtolower($controller_name).'.php';
+//		$controller_path = "controllers/".$controller_file;
+//		if(file_exists($controller_path))
+//		{
+//			include "controllers/".$controller_file;
+//		}
+//		else
+//		{
+//			/*
+//			правильно было бы кинуть здесь исключение,
+//			но для упрощения сразу сделаем редирект на страницу 404
+//			*/
+//			//Route::ErrorPage404();
+//		}
 		
 		// создаем контроллер
 		$controller = new $controller_name;
@@ -76,7 +85,7 @@ class Route
 		else
 		{
 			// здесь также разумнее было бы кинуть исключение
-			Route::ErrorPage404();
+			//Route::ErrorPage404();
 		}
 	
 	}

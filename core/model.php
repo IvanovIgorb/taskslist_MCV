@@ -13,7 +13,7 @@ class Model
 	*/
 
 	// метод выборки данных
-	public function getItemsFromDB()
+	public function getItemsFromDB($id)
 	{
 		// todo
 	}
