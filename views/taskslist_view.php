@@ -1,20 +1,4 @@
-<?php
-    //Проверка на действительность сессии юзера
-    if(!isset($_SESSION['user'])){
-        header('Location: /index');
-    }
-//    foreach ($data as $row){
-//        echo '<h1>'.$row.'</h1>';
-//    }
- //   function draw(){ //Вывод таблицы с задачами на страницу
-        //$items = getItemsFromDB();
-        //$model = new Model_Taskslist;
-        //$items = $model->getItemsFromDB();
-
- //   }
-
-?>
-<h2> Welcome, <?=$_SESSION['user']?> </h2>
+<h2> Welcome, <?=$username?> </h2>
 <div class="row">
     <h3> Tasks list </h3>
     <form action="" method="post">
@@ -39,7 +23,7 @@
 <div>
     <table class="table">
     <?php
-    foreach ($data as $row) {
+    foreach ($items as $row) {
         echo '<form action="" method="post">';
         echo '<input type="hidden" name="id" value="'.htmlspecialchars($row['id']) . '">';
         echo '<tr>';

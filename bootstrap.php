@@ -1,5 +1,4 @@
 <?php
-use Task_List_MVC\Core;
 
 // подключаем файлы ядра
 require_once 'core/model.php';
@@ -21,5 +20,5 @@ require_once 'core/controller.php';
 */
 
 require_once 'core/route.php';
-Task_List_MVC\Core\Route::start(); // запускаем маршрутизатор
+Route::start(); // запускаем маршрутизатор
 ?>

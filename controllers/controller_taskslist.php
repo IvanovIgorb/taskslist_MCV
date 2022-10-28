@@ -1,9 +1,5 @@
 <?php
-    namespace Task_List_MVC\Controllers;
-    use Task_List_MVC\Core\Controller;
-    use Task_List_MVC\Models\Model_TasksList;
-    use Task_List_MVC\Core\View;
-    session_start();
+
     class Controller_Taskslist extends Controller{
         
         function __construct()
@@ -42,9 +38,18 @@
         
         function action_index()
         {
+            //Проверка на действительность сессии юзера
+            if(!isset($_SESSION['user'])){
+                header('Location: /index');
+            }
             $this->handle();
             $items = $this->model->getItemsFromDB($_SESSION['id']);
-            $this->view->generate('taskslist_view.php', 'template_view.php', $items);
+            $username = $_SESSION['user'];
+            $data = [
+                'items' => $items,
+                'username' => $username
+            ];
+            $this->view->generate('taskslist_view.php', 'template_view.php', $data);
         }
 
     }

@@ -1,8 +1,4 @@
 <?php
-    namespace Task_List_MVC\Models;
-    use Task_List_MVC\Core\Model;
-    use \PDO;
-    if(file_exists('connect.php')) include 'connect.php';
     class Model_Login extends Model
     {
         public function insertData(string $login, string $pass)

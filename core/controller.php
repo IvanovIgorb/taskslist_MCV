@@ -1,5 +1,4 @@
 <?php
-namespace Task_List_MVC\Core;
 class Controller {
 	
 	public $model;
