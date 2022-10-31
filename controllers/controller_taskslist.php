@@ -14,16 +14,16 @@
             }
             if(isset ($_POST['add'])){ //Добавление задания
                 if(!empty($_POST['task'])){ //Проверка на пустое задание
-                    $this->model->addInDB($_POST['task'],$_SESSION['id']);
+                    $this->model->addInDB($_POST['task'], $_SESSION['id']);
                 }
             }
 
             if(isset ($_POST['ready'])){ //Меняет статус задания с "Не готово" на "Выполнено"
-                $this->model->changeStatusReadyInDB($_POST['id']);
+                $this->model->changeStatusReadyInDB($_POST['id'], $_SESSION['id']);
             }
 
             if(isset ($_POST['unready'])){  //Меняет статус задания с "Выполнено" на "Не готово"
-                $this->model->changeStatusUnreadyInDB($_POST['id']);
+                $this->model->changeStatusUnreadyInDB($_POST['id'], $_SESSION['id']);
             }
 
             if(isset ($_POST['readyall'])){ //Все задания в списке отмечаются выполненными
@@ -31,7 +31,7 @@
             }
 
             if(isset ($_POST['delete'])){ //Удаляет блок с текущим заданием из списка
-                $this->model->deleteFromDB($_POST['id']);
+                $this->model->deleteFromDB($_POST['id'], $_SESSION['id']);
             }
 
         }

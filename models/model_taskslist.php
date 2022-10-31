@@ -22,6 +22,8 @@
     
         function addInDB($taskValue,$userId){
             global $pdo;
+            print($userId);
+            print($taskValue);
     
             $query = "SELECT * FROM `tasks` WHERE `description` = :description AND `user_id` = :id";
             $params = [
@@ -47,28 +49,50 @@
             }
         }
     
-        function changeStatusReadyInDB($taskId){
+        function changeStatusReadyInDB($taskId, $userId){
             global $pdo;
-    
-            $query = "UPDATE `tasks` SET `status` = :status WHERE `id` = :id";
+
+            $query = "SELECT * FROM `tasks` WHERE `id` = :id AND `user_id` = :userId";
             $params = [
-                ':status' => 1,
+                ':userId' => $userId,
                 ':id' => $taskId
             ];
             $stmt = $pdo->prepare($query);
             $stmt->execute($params);
+            $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($data) != 0){
+                $query = "UPDATE `tasks` SET `status` = :status WHERE `id` = :id";
+                $params = [
+                    ':status' => 1,
+                    ':id' => $taskId
+                ];
+                $stmt = $pdo->prepare($query);
+                $stmt->execute($params);
+            }
         }
     
-        function changeStatusUnreadyInDB($taskId){
+        function changeStatusUnreadyInDB($taskId, $userId){
             global $pdo;
-    
-            $query = "UPDATE `tasks` SET `status` = :status WHERE `id` = :id";
+
+            $query = "SELECT * FROM `tasks` WHERE `id` = :id AND `user_id` = :userId";
             $params = [
-                ':status' => 0,
+                ':userId' => $userId,
                 ':id' => $taskId
             ];
             $stmt = $pdo->prepare($query);
             $stmt->execute($params);
+            $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($data) != 0){
+                $query = "UPDATE `tasks` SET `status` = :status WHERE `id` = :id";
+                $params = [
+                    ':status' => 0,
+                    ':id' => $taskId
+                ];
+                $stmt = $pdo->prepare($query);
+                $stmt->execute($params);
+            }
+    
+
         }
     
         function changeStatusAllReadyInDB($userId){
@@ -83,13 +107,23 @@
             $stmt->execute($params);
         }
     
-        function deleteFromDB($taskId){
+        function deleteFromDB($taskId, $userId){
             global $pdo;
-    
-            $query = "DELETE FROM `tasks` WHERE `id` = ?";
-            $params = [$taskId];
+
+            $query = "SELECT * FROM `tasks` WHERE `id` = :id AND `user_id` = :userId";
+            $params = [
+                ':userId' => $userId,
+                ':id' => $taskId
+            ];
             $stmt = $pdo->prepare($query);
             $stmt->execute($params);
+            $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($data) != 0){
+                $query = "DELETE FROM `tasks` WHERE `id` = ?";
+                $params = [$taskId];
+                $stmt = $pdo->prepare($query);
+                $stmt->execute($params);
+            }
         }
     }
 ?>
