@@ -1,5 +1,4 @@
 <?php
-    session_start();
     class Controller_Login extends Controller{
 
         function __construct()
